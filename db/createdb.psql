@@ -6,4 +6,6 @@ SET search_path TO fileFlipperDB;
 -- CREATE user fileAdmin
 create role fileAdmin with login password 'test1234';
 -- Grant user fileAdmin all privileges on database fileFlipperDB
-grant all privileges on database fileFlipperDB to fileAdmin;
+GRANT CONNECT ON DATABASE fileFlipperDB TO fileAdmin;
+-- Grant user CRUD access
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO fileAdmin;
