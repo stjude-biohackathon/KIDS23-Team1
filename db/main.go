@@ -24,6 +24,7 @@ type Order struct {
 	Samples       []Sample      `gorm:"foreignKey:OrderRefer"`
 	AnalysisSuite AnalysisSuite `gorm:"foreignKey:OrderRefer"`
 	AnalysisRun   AnalysisRun   `gorm:"foreignKey:OrderRefer"`
+	Anslysis      Analysis      `gorm:"foreignKey:OrderRefer"`
 }
 
 type Sample struct {
@@ -54,6 +55,7 @@ type Analysis struct {
 	analysis_type string
 
 	AnalysisSuiteRefer uint
+	OrderRefer         uint
 }
 
 type AnalysisSuite struct {
