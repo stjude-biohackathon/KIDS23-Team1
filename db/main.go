@@ -8,9 +8,8 @@ import (
 type User struct {
 	gorm.Model
 
-	name       string
-	department string
-	username   string `gorm:"unique"`
+	Name       string
+	Department string
 
 	Orders []Order `gorm:"foreignKey:UserRefer"`
 }
@@ -18,7 +17,7 @@ type User struct {
 type Order struct {
 	gorm.Model
 
-	order_name string `gorm:"unique"`
+	Order_name string `gorm:"unique"`
 	UserRefer  uint
 
 	Samples       []Sample      `gorm:"foreignKey:OrderRefer"`
@@ -30,9 +29,9 @@ type Order struct {
 type Sample struct {
 	gorm.Model
 
-	sample_name  string `gorm:"unique"`
-	sample_type  string
-	sample_state string
+	Sample_name  string `gorm:"unique"`
+	Sample_type  string
+	Sample_state string
 	OrderRefer   uint
 
 	SampleFiles []SampleFile `gorm:"foreignKey:SampleRefer"`
@@ -41,18 +40,18 @@ type Sample struct {
 type SampleFile struct {
 	gorm.Model
 
-	file_name     string `gorm:"unique"`
-	file_size     int
-	file_location string
-	file_state    string
+	File_name     string `gorm:"unique"`
+	File_size     int
+	File_location string
+	File_state    string
 	SampleRefer   uint
 }
 
 type Analysis struct {
 	gorm.Model
 
-	analysis_name string `gorm:"unique"`
-	analysis_type string
+	Analysis_name string `gorm:"unique"`
+	Analysis_type string
 
 	AnalysisSuiteRefer uint
 	OrderRefer         uint
@@ -61,7 +60,7 @@ type Analysis struct {
 type AnalysisSuite struct {
 	gorm.Model
 
-	suite_name string `gorm:"unique"`
+	Suite_name string `gorm:"unique"`
 	OrderRefer uint
 
 	Analyses []Analysis `gorm:"foreignKey:AnalysisSuiteRefer"`
@@ -70,9 +69,9 @@ type AnalysisSuite struct {
 type AnalysisRun struct {
 	gorm.Model
 
-	analysis_run_id     uint `gorm:"autoIncrement"`
-	analysis_run_status string
-	analysis_run_type   string
+	Analysis_run_id     uint `gorm:"autoIncrement"`
+	Analysis_run_status string
+	Analysis_run_type   string
 
 	OrderRefer uint
 
@@ -82,10 +81,10 @@ type AnalysisRun struct {
 type AnalysisRunOutput struct {
 	gorm.Model
 
-	output_file_name     string `gorm:"unique"`
-	output_file_size     int
-	output_file_location string
-	output_file_state    string
+	Output_file_name     string `gorm:"unique"`
+	Output_file_size     int
+	Output_file_location string
+	Output_file_state    string
 
 	AnalysisRunRefer uint
 }
