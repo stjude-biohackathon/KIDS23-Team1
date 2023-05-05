@@ -9,7 +9,22 @@
   </div>
 
   <style>
-    div {
-      /* Your styles here */
+
+    /* Your styles here */
+  .manage-order-container {
+    height: 50vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  @media only screen and (max-width: 768px) {
+    .manage-order-container {
+      flex-direction: column;
     }
+  }
+
   </style>

@@ -1,21 +1,33 @@
 <script lang="ts">
-  import ManageOrderContainer from "./lib/ManageOrderContainer.svelte";
+  import OrderProcessingInfo from "./lib/OrderProcessingInfo.svelte";
+  import PlaceOrder from "./lib/PlaceOrder.svelte";
+
+
 </script>
 
 <main>
   <div class="order-components-container">
-    <ManageOrderContainer title="Place Order">
-      <!-- TODO - place order section -->
-      <div>hey from place order inside app.svelte</div>
-    </ManageOrderContainer>
-    <ManageOrderContainer title ="Order Info">
-      <!-- TODO order info section -->
-      <div>hey from order info inside app.svelte</div>
-    </ManageOrderContainer>
+    <PlaceOrder/>
+    <OrderProcessingInfo/>
   </div>
 </main>
 
 <style>
+  .order-components-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  @media only screen and (max-width: 768px) {
+    .order-components-container {
+      flex-direction: column;
+    }
+  }
   .logo {
     height: 6em;
     padding: 1.5em;
