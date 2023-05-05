@@ -1,4 +1,9 @@
-exportinterface Order {
+import type { Analysis } from "./Analysis";
+import type { AnalysisRun } from "./AnalysisRun";
+import type { AnalysisSuite } from "./AnalysisSuite";
+import type { Sample } from "./Sample";
+
+export interface Order {
   id: number;
   order_name: string;
   user_refer: number;
@@ -10,4 +15,4 @@ exportinterface Order {
   analysis_suite: AnalysisSuite;
   analysis_run: AnalysisRun;
   analysis: Analysis;
-}[D[A
+}

@@ -2,7 +2,7 @@
     import ManageOrderContainer from "./ManageOrderContainer.svelte";
 </script>
 
+<!-- TODO order info section -->
 <ManageOrderContainer title ="Order Info">
-    <!-- TODO order info section -->
     <div>hey from order info inside OrderProcessingInfo.svelte</div>
-  </ManageOrderContainer>
+</ManageOrderContainer>

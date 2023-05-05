@@ -1,8 +1,6 @@
 <script lang="ts">
   import OrderProcessingInfo from "./lib/OrderProcessingInfo.svelte";
   import PlaceOrder from "./lib/PlaceOrder.svelte";
-
-
 </script>
 
 <main>
@@ -25,7 +23,8 @@
   }
   @media only screen and (max-width: 768px) {
     .order-components-container {
-      flex-direction: column;
+      display: flex;;
+      flex-direction: row;
     }
   }
   .logo {

@@ -1,16 +1,16 @@
-
 <script lang="ts">
     export let title: string;
-  </script>
+</script>
 
-  <div class ="manage-order-container">
-    <h1>{title}</h1>
-    <slot></slot>
+<div class ="manage-order-container">
+  <div class ="inner-container">
+      <h1>{title}</h1>
+  <slot></slot>
   </div>
 
-  <style>
+</div>
 
-    /* Your styles here */
+  <style>
   .manage-order-container {
     height: 50vh;
     width: 50vw;
@@ -21,10 +21,4 @@
     align-items: center;
     align-content: center;
   }
-  @media only screen and (max-width: 768px) {
-    .manage-order-container {
-      flex-direction: column;
-    }
-  }
-
   </style>
