@@ -14,13 +14,17 @@ type User struct {
 type Order struct {
 	gorm.Model
 
-	Order_name string `gorm:"unique"`
-	UserRefer  uint
+	Order_name         string `gorm:"unique"`
+	UserRefer          uint
+	SampleRefer        uint
+	AnalysisSuiteRefer uint
+	AnalysisRunRefer   uint
+	AnslysisRefer      uint
 
-	Samples       []Sample      `gorm:"foreignKey:OrderRefer"`
-	AnalysisSuite AnalysisSuite `gorm:"foreignKey:OrderRefer"`
-	AnalysisRun   AnalysisRun   `gorm:"foreignKey:OrderRefer"`
-	Anslysis      Analysis      `gorm:"foreignKey:OrderRefer"`
+	Sample        Sample        `gorm:"foreignKey:SampleRefer"`
+	AnalysisSuite AnalysisSuite `gorm:"foreignKey:AnalysisSuiteRefer"`
+	AnalysisRun   AnalysisRun   `gorm:"foreignKey:AnalysisRunRefer"`
+	Anslysis      Analysis      `gorm:"foreignKey:AnslysisRefer"`
 }
 
 type Sample struct {
@@ -29,7 +33,6 @@ type Sample struct {
 	Sample_name  string `gorm:"unique"`
 	Sample_type  string
 	Sample_state string
-	OrderRefer   uint
 
 	SampleFiles []SampleFile `gorm:"foreignKey:SampleRefer"`
 }
@@ -51,14 +54,12 @@ type Analysis struct {
 	Analysis_type string
 
 	AnalysisSuiteRefer uint
-	OrderRefer         uint
 }
 
 type AnalysisSuite struct {
 	gorm.Model
 
 	Suite_name string `gorm:"unique"`
-	OrderRefer uint
 
 	Analyses []Analysis `gorm:"foreignKey:AnalysisSuiteRefer"`
 }
@@ -70,8 +71,6 @@ type AnalysisRun struct {
 	Analysis_run_status string
 	Analysis_run_type   string
 
-	OrderRefer uint
-
 	AnalysisRunOutput []AnalysisRunOutput `gorm:"foreignKey:AnalysisRunRefer"`
 }
 
@@ -79,9 +78,9 @@ type AnalysisRunOutput struct {
 	gorm.Model
 
 	Output_file_name     string `gorm:"unique"`
-	Output_file_size     int
-	Output_file_location string
-	Output_file_state    string
+	output_file_size     int
+	output_file_location string
+	output_file_state    string
 
 	AnalysisRunRefer uint
 }
