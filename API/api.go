@@ -62,11 +62,38 @@ func main() {
 		}
 	})
 
-	router.GET("/samples", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "hello world",
-		})
-		// control.Get_samples()
+	router.GET("/samples/:sampleId", func(c *gin.Context) {
+		sample_id := c.Param("sampleId")
+		sample, err := control.Get_sample_and_related_files(sample_id, db)
+		if err != nil {
+			c.JSON(
+				400,
+				gin.H{"message": "bad request"},
+			)
+		} else {
+			c.JSON(200, gin.H{
+				"message": "hello world",
+			})
+			//extract sample
+			selected_sample := sample
+			//extract sampel file
+			related_sample_files := sample.SampleFiles
+			// return sample with related files using json
+			c.JSON(
+				200,
+				gin.H{
+					"response": gin.H{
+						"sample": gin.H{
+							"sample_id":    selected_sample.ID,
+							"sample_name":  selected_sample.Sample_name,
+							"sample_type":  selected_sample.Sample_type,
+							"sample_state": selected_sample.Sample_state,
+							"sample_files": related_sample_files,
+						},
+					},
+				},
+			)
+		}
 	})
 
 	router.GET("/orders", func(c *gin.Context) {
@@ -80,14 +107,12 @@ func main() {
 		c.JSON(200, gin.H{
 			"message": "hello world",
 		})
-		// control.Get_orders_by_user_id()
 	})
 
 	router.POST("/orders", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "hello world",
 		})
-		// control.Submit_order()
 	})
 
 	router.Run(":8383")

@@ -45,6 +45,7 @@ func Cancel_order(user_id int, order_id int, db *gorm.DB) error {
 	return nil
 }
 
+// to be implemented, Out of scope for now
 func Modify_order(order_id int) {
 	print("Hello World fronm order controller!")
 }
