@@ -131,5 +131,25 @@ func main() {
 			})
 	})
 
+	router.GET("/analysis/all", func(c *gin.Context) {
+
+		analyses, err := control.Get_analyses(db)
+
+		if err != nil {
+			c.JSON(
+				400,
+				gin.H{"message": "bad request"},
+			)
+		} else {
+			c.JSON(
+				200,
+				gin.H{
+					"response": gin.H{
+						"analyses": analyses,
+					},
+				})
+		}
+	})
+
 	router.Run(":8383")
 }
