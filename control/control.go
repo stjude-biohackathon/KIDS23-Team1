@@ -74,7 +74,10 @@ func Submit_order(user_id int, sample_id int, analysis_id int, order_name string
 			// update file state to rehydrating by give file id
 			db.Model(&model.SampleFile{}).Where("id = ?", pending_file.ID).Update("file_state", "Rehydrating")
 		}
-		msg = strings.Join(pending_files_name, " ")
+		db.Model(&model.SampleFile{}).Where("id = ?", 2).Update("file_state", "Ready")
+		// update location
+		db.Model(&model.SampleFile{}).Where("id = ?", 2).Update("file_location", "hot storage")
+		msg = "Rehydrating " + strings.Join(pending_files_name, " ")
 	}
 
 	return msg

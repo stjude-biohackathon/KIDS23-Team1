@@ -127,7 +127,7 @@ func main() {
 
 		c.JSON(200,
 			gin.H{
-				"message": res + " has started rehydrating process",
+				"message": res,
 			})
 	})
 
