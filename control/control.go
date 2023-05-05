@@ -95,3 +95,13 @@ func Modify_order(order_id int) {
 func MoveFileFromColdToHot() {
 	print("Hello World fronm order controller!")
 }
+
+// return all analyses
+func Get_analyses(db *gorm.DB) ([]model.Analysis, error) {
+	// get all analyses from db
+	var analyses []model.Analysis
+	if err := db.Find(&analyses).Error; err != nil {
+		return nil, err
+	}
+	return analyses, nil
+}
