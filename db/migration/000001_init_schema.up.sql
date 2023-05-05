@@ -85,11 +85,11 @@ create table "autocopy".analysis_run (
     "id" bigserial PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
     "anls_id" int NOT NULL,
-    "sample_id" int NOT NULL,
+    "order_sample_id" int NOT NULL,
     "status" autocopy.status NOT NULL,
     "created_at" timestamptz NOT NULL DEFAULT (now()),
     FOREIGN KEY ("anls_id") REFERENCES "autocopy".analysis_type("id") ON DELETE CASCADE,
-    FOREIGN KEY ("sample_id") REFERENCES "autocopy".sample("id") ON DELETE CASCADE
+    FOREIGN KEY ("order_sample_id") REFERENCES "autocopy".order_sample("id") ON DELETE CASCADE
 );
 
 -- analysis run output files
