@@ -1,4 +1,4 @@
-DB_URL=postgresql://dkennetz:harrison40@localhost:5432/fileflipperdb?sslmode=disable
+DB_URL=postgresql://genomeMaster@genomefileflipper.postgres.database.azure.com:Hackathon23Team1Cat@genomefileflipper:5432/fileflipperdb?sslmode=disable
 
 createuser:
 	su - postgres -c "createuser fileadmin"
@@ -6,7 +6,7 @@ createuser:
 password:
 	su - postgres -c "psql -c \"alter user fileadmin with password 'test1234'\""
 createdb:
-	createdb --username=dkennetz --owner=dkennetz fileflipperdb
+	createdb --username=fileadmin --owner=fileadmin fileflipperdb
 
 dropdb:
 	dropdb fileflipperdb
@@ -18,7 +18,7 @@ migrateup:
 	migrate -path db/migration -database "$(DB_URL)" --verbose up
 
 loaddata:
-	psql -f - fileflipperdb -t < ./db/migration/load_data.sql
+	PGPASSWORD=Hackathon23Team1Cat psql -h genomefileflipper.postgres.database.azure.com -d fileflipperdb -U genomeMaster@genomefileflipper.postgres.database.azure.com -f - fileflipperdb -t < ./db/migration/load_data.sql
 
 doover:
-	dropdb fileflipperdb && createdb --username=dkennetz --owner=dkennetz fileflipperdb && migrate -path db/migration -database "$(DB_URL)" --verbose up
+	dropdb fileflipperdb && createdb --username=fileadmin --owner=fileadmin fileflipperdb && migrate -path db/migration -database "$(DB_URL)" --verbose up
