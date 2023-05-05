@@ -59,7 +59,7 @@ func Submit_order(user_id int, sample_id int, analysis_id int, order_name string
 
 	// loop through sample files and check status
 	for _, sample_file := range sample_files {
-		if sample_file.File_state != "Ready" {
+		if sample_file.File_state != "Ready" && sample_file.File_state != "Rehydrating" {
 			pending_files = append(pending_files, sample_file)
 			pending_files_name = append(pending_files_name, sample_file.File_name)
 		}
@@ -70,7 +70,9 @@ func Submit_order(user_id int, sample_id int, analysis_id int, order_name string
 		// do something to initiate file rehydration
 		// loop through pending files and check status
 		for _, pending_file := range pending_files {
-			print(pending_file.File_name)
+			print(pending_file.ID)
+			// update file state to rehydrating by give file id
+			db.Model(&model.SampleFile{}).Where("id = ?", pending_file.ID).Update("file_state", "Rehydrating")
 		}
 		msg = strings.Join(pending_files_name, " ")
 	}
