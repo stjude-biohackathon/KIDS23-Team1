@@ -2,6 +2,10 @@ package main
 
 import (
 	// import control package from controller/control.go
+	// import model package from model/model.go
+
+	"fileFlipper/model"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
@@ -12,8 +16,12 @@ func Get_orders_by_user(user_id string, db *gorm.DB) {
 	print("Hello World fronm order controller!")
 }
 
-func Get_user_by_id(user_id string, db *gorm.DB) {
-	print("Hello World fronm order controller!")
+func Get_user_by_id(user_id string, db *gorm.DB) (*model.User, error) {
+	var user model.User
+	if err := db.First(&user, user_id).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
 }
 
 func main() {
@@ -34,11 +42,29 @@ func main() {
 				gin.H{"message": "bad request"},
 			)
 		} else {
-			Get_user_by_id(user_id, db)
+			user_name := ""
+			user_department := ""
+
+			user, err := Get_user_by_id(user_id, db)
+			if err != nil {
+				c.JSON(
+					400,
+					gin.H{"message": "bad request"},
+				)
+			} else {
+				user_name = user.Name
+				user_department = user.Department
+			}
+
+			fmt.Printf("User ID: %s, Name: %s\n", user_name, user_department)
+
 			c.JSON(
 				200,
 				gin.H{
-					"body": "waiting for list",
+					"response": gin.H{
+						"name":       user_name,
+						"department": user_department,
+					},
 				},
 			)
 		}
