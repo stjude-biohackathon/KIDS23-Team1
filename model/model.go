@@ -1,9 +1,6 @@
-package main
+package model
 
-import (
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-)
+import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
@@ -86,24 +83,4 @@ type AnalysisRunOutput struct {
 	output_file_state    string
 
 	AnalysisRunRefer uint
-}
-
-func main() {
-	dsn := "host=localhost user=fileadmin password=test1234 dbname=fileflipperdb port=5432 sslmode=disable"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic("failed to connect database")
-	} else {
-		db.AutoMigrate(
-			&User{},
-			&Order{},
-			&Sample{},
-			&SampleFile{},
-			&Analysis{},
-			&AnalysisSuite{},
-			&AnalysisRun{},
-			&AnalysisRunOutput{},
-		)
-		print("connected to database", db)
-	}
 }
