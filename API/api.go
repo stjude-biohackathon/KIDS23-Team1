@@ -6,11 +6,19 @@ import (
 
 	"fileFlipper/control"
 	"fmt"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
+
+type OrderPost struct {
+	UserID     int    `json:"user_id"`
+	SampleID   int    `json:"sample_id"`
+	AnalysisID int    `json:"analysis_id"`
+	OrderName  string `json:"order_name"`
+}
 
 func Get_orders_by_user(user_id string, db *gorm.DB) {
 	print("Hello World fronm order controller!")
@@ -71,9 +79,6 @@ func main() {
 				gin.H{"message": "bad request"},
 			)
 		} else {
-			c.JSON(200, gin.H{
-				"message": "hello world",
-			})
 			//extract sample
 			selected_sample := sample
 			//extract sampel file
@@ -109,10 +114,21 @@ func main() {
 		})
 	})
 
-	router.POST("/orders", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "hello world",
-		})
+	router.POST("/order", func(c *gin.Context) {
+		var post OrderPost
+		if err := c.BindJSON(&post); err != nil {
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
+		res := control.Submit_order(post.UserID, post.SampleID, post.AnalysisID, post.OrderName, db)
+
+		print(res)
+
+		c.JSON(200,
+			gin.H{
+				"message": res + " has started rehydrating process",
+			})
 	})
 
 	router.Run(":8383")
