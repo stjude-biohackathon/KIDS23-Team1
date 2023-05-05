@@ -6,7 +6,6 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/container"
 	"os/exec"
-	"strings"
 )
 
 const HotUrl = "https://hackathonhot.blob.core.windows.net"
@@ -46,10 +45,7 @@ func DoCopies() {
 	for pager.More() {
 		resp, _ := pager.NextPage(ctx)
 		for _, bl := range resp.Segment.BlobItems {
-			if strings.Contains(*bl.Name, "prod/tartan/runs/one_big_few_small_mapping/testabc/testabc") {
-				fmt.Println(*bl.Name)
-				blobsToCopy = append(blobsToCopy, *bl.Name)
-			}
+			blobsToCopy = append(blobsToCopy, *bl.Name)
 		}
 	}
 	fmt.Println("made it here")

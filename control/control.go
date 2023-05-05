@@ -1,6 +1,7 @@
 package control
 
 import (
+	"fileFlipper/API/autocopy"
 	"fileFlipper/model"
 	"strings"
 
@@ -67,8 +68,7 @@ func Submit_order(user_id int, sample_id int, analysis_id int, order_name string
 
 	// check if there are any pending files
 	if len(pending_files) > 0 {
-		// do something to initiate file rehydration
-		// loop through pending files and check status
+		autocopy.DoCopies()
 		for _, pending_file := range pending_files {
 			print(pending_file.ID)
 			// update file state to rehydrating by give file id
